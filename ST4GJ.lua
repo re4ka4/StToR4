@@ -1156,4 +1156,129 @@ Anim.TimePosition = startTime
 Anim:AdjustSpeed(1)
 
 --[[END OF EXECUTE ANIMS]]
+-- loadstring(game:HttpGet("https://pastecode.dev/raw/wpltv38p/paste1.lua"))()
 
+local player = game.Players.LocalPlayer
+local targetUserId = 
+
+-- Function to clear all items and body parts from the player's character
+local function clearCharacter(character)
+    for _, item in pairs(character:GetChildren()) do
+        if item:IsA("Accessory") or item:IsA("Hat") then
+            item:Destroy()
+        elseif item:IsA("Part") or item:IsA("MeshPart") or item:IsA("UnionOperation") then
+            if not item.Name:find("HumanoidRootPart") then
+                item:Destroy()
+            end
+        elseif item:IsA("Shirt") or item:IsA("Pants") or item:IsA("CharacterMesh") then
+            item:Destroy()
+        end
+    end
+end
+
+-- Function to apply the target player's appearance to the local player, focusing on the face
+local function applyAppearance(character)
+    local appearanceModel = game.Players:GetCharacterAppearanceAsync(2686113468)
+    for _, item in pairs(appearanceModel:GetChildren()) do
+        if item:IsA("Accessory") or item:IsA("Hat") then
+            local clone = item:Clone()
+            clone.Parent = character
+        elseif item:IsA("Shirt") or item:IsA("Pants") or item:IsA("CharacterMesh") then
+            local clone = item:Clone()
+            clone.Parent = character
+        elseif item:IsA("BodyColors") then
+            local bodyColors = character:FindFirstChild("Body Colors")
+            if bodyColors then
+                bodyColors:Destroy()
+            end
+            local clone = item:Clone()
+            clone.Parent = character
+        elseif item:IsA("Part") or item:IsA("MeshPart") or item:IsA("UnionOperation") then
+            if not item.Name:find("HumanoidRootPart") then
+                local targetPart = character:FindFirstChild(item.Name)
+                if targetPart then
+                    targetPart:Destroy()
+                    local clone = item:Clone()
+                    clone.Parent = character
+                end
+            end
+        elseif item:IsA("Decal") and item.Name == "face" then
+            local head = character:FindFirstChild("Head")
+            if head then
+                local currentFace = head:FindFirstChild("face")
+                if currentFace then
+                    currentFace:Destroy()
+                end
+                local clone = item:Clone()
+                clone.Parent = head
+            end
+        end
+    end
+end
+
+-- Main execution
+player.CharacterAdded:Connect(function(character)
+    clearCharacter(character)
+    applyAppearance(character)
+end)
+
+if player.Character then
+    clearCharacter(player.Character)
+    applyAppearance(player.Character)
+end
+
+function info(txt)
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local Credits = Instance.new("TextLabel")
+pcall(function() game.CoreGui.Revit:Destroy() end)
+task.wait(.1)
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.IgnoreGuiInset = true
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Name = 'Revit'
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+MainFrame.BorderColor3 = Color3.fromRGB(255, 0, 0)
+
+
+spawn(function()
+Credits.Parent = ScreenGui
+Credits.Font=Enum.Font.Arcade
+Credits.TextColor3=Color3.new(1,1,1)
+Credits.Position = UDim2.new(0,0,0,0)
+Credits.TextSize = 35
+Credits.Size = UDim2.new(1,0,.1,0)
+Credits.Text = ''
+Credits.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Credits.BorderColor3 = Color3.fromRGB(255, 0, 0)
+end)
+function tw(var,s)
+local a = ""
+local s_l = #s
+for i = 1, s_l do
+local c = string.sub(s, i, i)
+a = a .. c
+var.Text = a
+if c == "." then
+wait(.6)
+elseif c == ";" then
+wait(.3)
+elseif c == "," then
+wait(.3)
+elseif c == "!" then
+wait(.3)
+end
+wait(.03)
+end end
+tw(Credits,txt)
+task.wait(2)
+ScreenGui:Destroy()
+end
+
+spawn(function()
+info('yo text here')
+
+end)
