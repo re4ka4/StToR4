@@ -604,7 +604,7 @@ end
 
 local AnimAnim = Instance.new("Animation")
 
-AnimAnim.AnimationId = ""
+AnimAnim.AnimationId = "rbxassetid://10470104242"
 
 local Anim = Humanoid:LoadAnimation(AnimAnim)
 
@@ -645,7 +645,7 @@ local humanoid = character:WaitForChild("Humanoid")
 
 local animationIdsToStop = {
 
-    [] = true, --downslam finisher
+    [17859015788] = true, --downslam finisher
 
     [10469493270] = true, --punch1
 
@@ -668,7 +668,7 @@ local replacementAnimations = {
 
     ["10469643643"] = "rbxassetid://17889290569", --punch4
 
-    ["17859015788"] = "", --downslam finisher
+    ["17859015788"] = "rbxassetid://12684185971", --downslam finisher
 
     ["11365563255"] = "rbxassetid://14516273501" --punch idk
 
@@ -1156,4 +1156,3 @@ Anim.TimePosition = startTime
 Anim:AdjustSpeed(1)
 
 --[[END OF EXECUTE ANIMS]]
-loadstring(game:HttpGet("https://pastecode.dev/raw/wpltv38p/paste1.lua"))()
