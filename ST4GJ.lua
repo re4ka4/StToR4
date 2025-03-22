@@ -53,6 +53,7 @@ spawn(function()
 info('yo text here')
 
 end)
+
 --Move & Ultimate Names
 
 local player = game.Players.LocalPlayer
@@ -70,7 +71,7 @@ local baseButton = hotbarFrame:FindFirstChild("1").Base
 local ToolName = baseButton.ToolName
 
 
-ToolName.Text = "Move1"
+ToolName.Text = "Not That Fast!"
 
 
 local player = game.Players.LocalPlayer
@@ -88,7 +89,7 @@ local baseButton = hotbarFrame:FindFirstChild("2").Base
 local ToolName = baseButton.ToolName
 
 
-ToolName.Text = "Move2"
+ToolName.Text = "Kick Barrage"
 
 
 local player = game.Players.LocalPlayer
@@ -106,7 +107,7 @@ local baseButton = hotbarFrame:FindFirstChild("3").Base
 local ToolName = baseButton.ToolName
 
 
-ToolName.Text = "Move3"
+ToolName.Text = "Slap"
 
 
 local player = game.Players.LocalPlayer
@@ -124,7 +125,7 @@ local baseButton = hotbarFrame:FindFirstChild("4").Base
 local ToolName = baseButton.ToolName
 
 
-ToolName.Text = "Move4"
+ToolName.Text = "Final Hunt"
 
 
 local Players = game:GetService("Players")
@@ -148,7 +149,7 @@ local function findGuiAndSetText()
 
             if textLabel then
 
-                textLabel.Text = "UltimateName"
+                textLabel.Text = "RAGE MODE"
 
             end
 
@@ -196,7 +197,7 @@ end
 
 local AnimAnim = Instance.new("Animation")
 
-AnimAnim.AnimationId = "rbxassetid://17838006839"
+AnimAnim.AnimationId = "rbxassetid://13309500827"
 
 local Anim = Humanoid:LoadAnimation(AnimAnim)
 
@@ -210,7 +211,7 @@ Anim:AdjustSpeed(0.1)
 
 Anim.TimePosition = startTime
 
-Anim:AdjustSpeed(0.9)
+Anim:AdjustSpeed(1.1)
 
 
     end
@@ -312,12 +313,12 @@ end
 
 local AnimAnim = Instance.new("Animation")
 
-AnimAnim.AnimationId = "rbxassetid://17838619895"
+AnimAnim.AnimationId = "rbxassetid://13295936866"
 
 local Anim = Humanoid:LoadAnimation(AnimAnim)
 
 
-local startTime = 0.3
+local startTime = 0.6
 
 
 Anim:Play()
@@ -326,7 +327,7 @@ Anim:AdjustSpeed(0)
 
 Anim.TimePosition = startTime
 
-Anim:AdjustSpeed(1)
+Anim:AdjustSpeed(0.7)
 
 
 delay(1.8, function()
@@ -376,7 +377,7 @@ end
 
 local AnimAnim = Instance.new("Animation")
 
-AnimAnim.AnimationId = "rbxassetid://16515850153"
+AnimAnim.AnimationId = "rbxassetid://12463072679"
 
 local Anim = Humanoid:LoadAnimation(AnimAnim)
 
@@ -886,7 +887,7 @@ local humanoid = character:WaitForChild("Humanoid")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 -- Messages to send
-local messages = {"MESSAGE x1", "MESSAGE x2", "MESSAGE x3", "MESSAGE x4"}
+local messages = {""}
 
 local function sendMessage(text)
     ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(text, "All")
@@ -901,7 +902,7 @@ end
 
 --[[Idle Animation]]
 
-local animationId = "rbxassetid://15099756132" -- Replace with your animation ID
+local animationId = "" -- Replace with your animation ID
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
@@ -1212,46 +1213,74 @@ Anim:AdjustSpeed(1)
 
 --[[END OF EXECUTE ANIMS]]
 
---[[Garou Color Changer !DELETE IF NOT NEEDED!]]
+-- loadstring(game:HttpGet("https://pastecode.dev/raw/wpltv38p/paste1.lua"))()
 
---[[LEFT ARM COLORS]]
+local player = game.Players.LocalPlayer
+local targetUserId = 
 
-local char = game.Players.LocalPlayer.Character
-getgenv().LArmCol = char['Left Arm'].ChildAdded:Connect(function(pp)
-if pp.Name == 'WaterPalm' then
-for i,v in pairs(pp:WaitForChild('ConstantEmit'):GetChildren()) do
-v.Color =
-ColorSequence.new{ColorSequenceKeypoint.new(0.00, 
-Color3.fromRGB(255, 0, 0)), -- Change Color (Red, Green, Blue)
-ColorSequenceKeypoint.new(1.00, 
-Color3.fromRGB(0, 0, 255))} -- Change Color (Red, Green, Blue)
+-- Function to clear all items and body parts from the player's character
+local function clearCharacter(character)
+    for _, item in pairs(character:GetChildren()) do
+        if item:IsA("Accessory") or item:IsA("Hat") then
+            item:Destroy()
+        elseif item:IsA("Part") or item:IsA("MeshPart") or item:IsA("UnionOperation") then
+            if not item.Name:find("HumanoidRootPart") then
+                item:Destroy()
+            end
+        elseif item:IsA("Shirt") or item:IsA("Pants") or item:IsA("CharacterMesh") then
+            item:Destroy()
+        end
+    end
 end
 
-pp:WaitForChild('WaterTrail').Color = 
-ColorSequence.new{ColorSequenceKeypoint.new(0.00, 
-Color3.fromRGB(255, 0, 0)), -- Change Color (Red, Green, Blue)
-ColorSequenceKeypoint.new(1.00, 
-Color3.fromRGB(0, 0, 255))} -- Change Color (Red, Green, Blue)
-
-end end)
---[[RIGHT ARM colors]]
-
-getgenv().RArmCol = char['Right Arm'].ChildAdded:Connect(function(pp)
-if pp.Name == 'WaterPalm' then
-for i,v in pairs(pp:WaitForChild('ConstantEmit'):GetChildren()) do
-v.Color =
-ColorSequence.new{ColorSequenceKeypoint.new(0.00, 
-Color3.fromRGB(255, 0, 0)), -- Change Color (Red, Green, Blue)
-ColorSequenceKeypoint.new(1.00, 
-Color3.fromRGB(0, 0, 255))} -- Change Color (Red, Green, Blue)
+-- Function to apply the target player's appearance to the local player, focusing on the face
+local function applyAppearance(character)
+    local appearanceModel = game.Players:GetCharacterAppearanceAsync(2686113468)
+    for _, item in pairs(appearanceModel:GetChildren()) do
+        if item:IsA("Accessory") or item:IsA("Hat") then
+            local clone = item:Clone()
+            clone.Parent = character
+        elseif item:IsA("Shirt") or item:IsA("Pants") or item:IsA("CharacterMesh") then
+            local clone = item:Clone()
+            clone.Parent = character
+        elseif item:IsA("BodyColors") then
+            local bodyColors = character:FindFirstChild("Body Colors")
+            if bodyColors then
+                bodyColors:Destroy()
+            end
+            local clone = item:Clone()
+            clone.Parent = character
+        elseif item:IsA("Part") or item:IsA("MeshPart") or item:IsA("UnionOperation") then
+            if not item.Name:find("HumanoidRootPart") then
+                local targetPart = character:FindFirstChild(item.Name)
+                if targetPart then
+                    targetPart:Destroy()
+                    local clone = item:Clone()
+                    clone.Parent = character
+                end
+            end
+        elseif item:IsA("Decal") and item.Name == "face" then
+            local head = character:FindFirstChild("Head")
+            if head then
+                local currentFace = head:FindFirstChild("face")
+                if currentFace then
+                    currentFace:Destroy()
+                end
+                local clone = item:Clone()
+                clone.Parent = head
+            end
+        end
+    end
 end
-pp:WaitForChild('WaterTrail').Color = 
-ColorSequence.new{ColorSequenceKeypoint.new(0.00, 
-Color3.fromRGB(255, 0, 0)), -- Change Color (Red, Green, Blue) 
-ColorSequenceKeypoint.new(1.00, 
-Color3.fromRGB(0, 0, 255))} -- Change Color (Red, Green, Blue)
 
-end end)
+-- Main execution
+player.CharacterAdded:Connect(function(character)
+    clearCharacter(character)
+    applyAppearance(character)
+end)
 
---[[END OF GAROU COLORS]]
+if player.Character then
+    clearCharacter(player.Character)
+    applyAppearance(player.Character)
+end
 
